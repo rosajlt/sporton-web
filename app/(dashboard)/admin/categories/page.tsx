@@ -2,11 +2,11 @@
 
 import Button from "@/app/(landing)/ui/button";
 import { FiPlus } from "react-icons/fi";
-import ProductTable from "../../components/products/product-table";
-import ProductModal from "../../components/products/product-modal";
+import CategoryTable from "../../components/categories/category-table";
+import CategoryModal from "../../components/categories/category-modal";
 import { useState } from "react";
 
-const ProductManagement = () => {
+const CategoryManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseModal = () => {
@@ -17,21 +17,22 @@ const ProductManagement = () => {
         <div>
           <div className="flex justify-between items-center mb-10 ">
             <div>
-              <h1 className="font-bold text-2xl">Product Management</h1>
-              <p className="opacity-50">Manage your inventory, prices and stock.</p>
+              <h1 className="font-bold text-2xl">Category Management</h1>
+              <p className="opacity-50">Organize your category into categories. </p>
             </div>
             <Button 
                 size="normal" 
+                variant="primary"
                 className="rounded-lg"
                 onClick={() => setIsOpen(true)}
             >
-                <FiPlus size={24} /> Add Product
+                <FiPlus size={24} /> Add Category
             </Button>
           </div>
-          <ProductTable />
-          <ProductModal isOpen={isOpen} onClose={handleCloseModal} />
+          <CategoryTable />
+          <CategoryModal isOpen={isOpen} onClose={handleCloseModal} />
         </div>
     )
 };
 
-export default ProductManagement;
+export default CategoryManagement;

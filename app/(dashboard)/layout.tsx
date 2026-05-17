@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import "../globals.css";
 import Sidebar from "./components/layouts/sidebar";
 import React from "react";
 
 const poppins = Poppins({
-  subsets: ["latin"],
   variable: "--font-poppins",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
@@ -21,17 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
-        <div className="flex bg-[#F7F9FA] min-h-screen">
-          
-          {/* Sidebar */}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} antialiased`}>
+        <div className="flex min-h-screen bg-white">
           <Sidebar />
-
-          {/* Content */}
-          <main className="flex-1 ml-72 p-10">
-            {children}
-          </main>
+          <div className="flex-1 ml-80 p-14 bg-[#F7F9FA] min-h-screen">
+            <div className="max-w-6xl mx-auto">
+             {children}
+            </div>
+         </div>
         </div>
       </body>
     </html>
