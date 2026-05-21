@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "../globals.css";
 import Sidebar from "./components/layouts/sidebar";
 import React from "react";
+import AuthGuard from "./components/layouts/auth-guard";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -27,7 +28,9 @@ export default function RootLayout({
           <Sidebar />
           <div className="flex-1 ml-80 p-14 bg-[#F7F9FA] min-h-screen">
             <div className="max-w-6xl mx-auto">
-             {children}
+             <AuthGuard>
+                {children}
+              </AuthGuard>
             </div>
          </div>
         </div>
