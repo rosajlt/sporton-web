@@ -29,10 +29,10 @@ const LoginPage = () => {
             router.push("/admin/products");
            }
         } catch (err: any) {
-            const errorMsg = err.message || "Something went wrong, please try again later.";
-            setErrorMessage(errorMsg);
-            console.error("Login error:", err);
-            console.error("Error details:", { email, password, errorMsg });
+            setErrorMessage(
+            err.message || "Something went wrong, please try again later.",
+        );
+        console.error("Login error:", err);
         } finally {
             setIsLoading(false);
         }
@@ -40,7 +40,7 @@ const LoginPage = () => {
 
     return (
         <main className="bg-[#F7F9FA] w-full min-h-screen flex justify-center items-center">
-            <div className="max-w-136 w-full bg-white rounded-xl border-t-4 border-primary py-12 px-[72px]">
+            <div className="max-w-md w-full bg-white rounded-xl border-t-4 border-primary py-12 px-18">
                  <Image
                     src="/logo-admin.svg"
                     alt="logo admin"
