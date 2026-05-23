@@ -86,30 +86,23 @@ const TransactionModal = ({
 
           <h4 className="font-semibold text-sm mb-2">Items Purchased</h4>
 
-          <div className="space-y-3">
-            {transaction.purchaseIdItems && transaction.purchaseIdItems.length > 0 ? (
-              transaction.purchaseIdItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="border border-gray-200 rounded-lg p-2 flex items-center gap-2"
-                >
-                  <div className="bg-gray-100 rounded aspect-square w-8 h-8">
-                    <Image
-                      src={getImageUrl(item.productId.imageUrl)}
-                      width={30}
-                      height={30}
-                      alt="product image"
-                    />
+           <div className="space-y-3">
+            {transaction.purchaseIdItems.map((item, index) => (
+              <div className="border border-gray-200 rounded-lg p-2 flex items-center gap-2">
+                <div className="bg-gray-100 rounded aspect-square w-8 h-8">
+                  <Image
+                    src={getImageUrl(item.productId.imageUrl)}
+                    width={30}
+                    height={30}
+                    alt="product image"
+                  />
                   </div>
                   <div className="font-medium text-sm">{item.productId.name}</div>
                   <div className="font-medium ml-auto text-sm">
                     {item.qty} units
                   </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-500">No items found</p>
-            )}
+              ))}
           </div>
           <div className="flex justify-between  text-sm mt-6">
             <h4 className="font-semibold">Total </h4>
