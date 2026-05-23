@@ -4,7 +4,7 @@ import TransactionTable from "../../components/transactions/transaction-table";
 import TransactionModal from "../../components/transactions/transaction-modal";
 import { useEffect, useState } from "react";
 import { Transaction } from "@/app/types";
-import { getAllTransactions, updateTransactionStatus } from "@/app/services/transaction.service";
+import { getAllTransactions, updateTransaction } from "@/app/services/transaction.service";
 import { toast } from "react-toastify";
 
 const TransactionManagement = () => {
@@ -38,7 +38,7 @@ const TransactionManagement = () => {
     try {
       const formData = new FormData();
       formData.append("status", status);
-      await updateTransactionStatus(id, formData.get("status") as string);
+      await updateTransaction(id, formData);
 
       toast.success("Transaction status updated successfully!");
       

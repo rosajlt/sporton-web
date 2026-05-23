@@ -15,6 +15,11 @@ export const getTransactionById = async (id: string): Promise<Transaction> => {
 
 export const updateTransactionStatus = async (id: string, status: string): Promise<Transaction> => {
     return await fetchAPI<Transaction>(`/transactions/${id}`, {
+                method: "PUT",
+        headers: {
+            ...getAuthHeaders()
+        },
+        body: JSON.stringify({ status })
     });
 };
 

@@ -16,7 +16,7 @@ const LoginPage = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            router.push("/admin/products");
+            router.push("/admin/login");
         }
     }, [router]);
 
@@ -26,7 +26,7 @@ const LoginPage = () => {
            const data = await login({ email, password }); 
 
            if (data.token) {
-            router.push("/admin/products");
+            router.push("/admin/login");
            }
         } catch (err: any) {
             setErrorMessage(
