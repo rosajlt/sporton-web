@@ -2,18 +2,59 @@
 
 import TransactionTable from "../../components/transactions/transaction-table";
 import TransactionModal from "../../components/transactions/transaction-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Transaction } from "@/app/types";
+import { getAllTransactions, updateTransactionStatus } from "@/app/services/transaction.service";
+import { toast } from "react-toastify";
 
 const TransactionManagement = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction | null>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  const fetchTransactions = async () => {
+   try {
+     const data = await getAllTransactions();
+     setTransactions(data);
+   } catch (error) {
+     console.error("Failed to fetch transactions:", error);
+   } finally {
+      setIsModalOpen(false);
+      setSelectedTransactionId(null);
+   }
+  }
 
   const handleCloseModal = () => {
-    setIsOpen(false);
+    setIsModalOpen(false);
+    setSelectedTransactionId(null);
   };
 
-  const handViewDetails = () => {
-    setIsOpen(true)
-  }
+  const handleViewDetails = (transaction: Transaction) => {
+    setSelectedTransactionId(transaction);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdateStatus = async (id: string, status: "paid" | "rejected") => {
+    try {
+      const formData = new FormData();
+      formData.append("status", status);
+      await updateTransactionStatus(id, formData.get("status") as string);
+
+      toast.success("Transaction status updated successfully!");
+      
+      await fetchTransactions();
+      
+    } catch (error) {
+      console.error("Failed to update transaction status:", error);
+      toast.error("Failed to update transaction status.");
+    }  finally {
+      setIsModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  } , []);
 
     return ( 
         <div>
@@ -23,8 +64,8 @@ const TransactionManagement = () => {
               <p className="opacity-50">Verify incoming payments and manage orders.</p>
             </div>
           </div>
-          <TransactionTable onViewDetails={handViewDetails} />
-          <TransactionModal isOpen={isOpen} onClose={handleCloseModal} />
+          <TransactionTable transactions={transactions} onViewDetails={handleViewDetails} />
+          {selectedTransactionId && <TransactionModal transaction={selectedTransactionId} onStatusChange={handleUpdateStatus} isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
     )
 };
