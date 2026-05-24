@@ -8,7 +8,7 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(credentials)
-    })
+    });
 
     if (res.token) {
         localStorage.setItem("token", res.token);
@@ -16,8 +16,8 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
     }
 
     return res;
-}
+};
 export const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-}
+};
